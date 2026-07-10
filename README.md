@@ -28,7 +28,7 @@ The overall objective is to allow developers to inspect WebSocket communication 
 |--------|--------|
 | Community Bonding | ✅ Completed |
 | Milestone 1 — WebSocket Timeline Instrumentation | ✅ Completed & Merged |
-| Milestone 2 — VM Service Integration | 🔄 In Progress |
+| Milestone 2 — VM Service Integration | ✅ Completed & Merged |
 | Overall Progress | **On Schedule ✅** |
 
 ---
@@ -226,7 +226,7 @@ This milestone preserves complete backward compatibility while extending existin
 
 ### Status
 
-> **In Progress 🔄**
+> **Merged ✅**
 
 ---
 
