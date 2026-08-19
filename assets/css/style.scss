@@ -1,0 +1,67 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+/* Remove the default Architect header */
+header {
+  display: none !important;
+}
+
+/* Remove the default footer */
+footer {
+  display: none !important;
+}
+
+/* Use the available page width for the README */
+.wrapper {
+  width: min(1100px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+section {
+  float: none !important;
+  width: 100% !important;
+  max-width: none !important;
+  padding-bottom: 40px !important;
+}
+
+/* GSoC header image */
+.gsoc-header {
+  width: 100%;
+  text-align: center;
+  margin: 10px 0 24px;
+}
+
+.gsoc-header img {
+  display: inline-block;
+  width: min(620px, 72%);
+  height: auto;
+  margin: 0 auto;
+}
+
+/* README content */
+section h1:first-of-type {
+  margin-top: 0;
+}
+
+/* Tables */
+table {
+  width: 100%;
+}
+
+/* Code blocks */
+pre {
+  overflow-x: auto;
+}
+
+/* Mobile */
+@media screen and (max-width: 720px) {
+  .wrapper {
+    width: calc(100% - 28px);
+  }
+
+  .gsoc-header img {
+    width: 88%;
+  }
+}
