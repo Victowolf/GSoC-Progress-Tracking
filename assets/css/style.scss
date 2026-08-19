@@ -128,7 +128,211 @@ section {
   transform: rotate(-90deg);
   transform-origin: center center;
 }
+/* =========================================================
+   CONTACT ME
+   ========================================================= */
 
+.contact-menu {
+  position: fixed;
+
+  top: 25px;
+  right: 28px;
+
+  z-index: 200;
+}
+
+
+/* Remove default details arrow */
+.contact-menu summary {
+  list-style: none;
+}
+
+.contact-menu summary::-webkit-details-marker {
+  display: none;
+}
+
+
+/* =========================================================
+   CONTACT BUTTON
+   ========================================================= */
+
+.contact-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 125px;
+  height: 48px;
+
+  padding: 0 22px;
+
+  background: #ffffff;
+
+  border-radius: 999px;
+
+  box-shadow:
+    0 5px 15px rgba(0, 0, 0, 0.16);
+
+  color: #172033;
+
+  font-family:
+    "Aptos Display",
+    Aptos,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  user-select: none;
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+
+.contact-button:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 7px 18px rgba(0, 0, 0, 0.20);
+}
+
+
+.contact-button:active {
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   CONTACT DROPDOWN
+   ========================================================= */
+
+.contact-dialog {
+  position: absolute;
+
+  top: calc(100% + 10px);
+  right: 0;
+
+  width: 230px;
+
+  padding: 10px;
+
+  background: #ffffff;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.20);
+
+  overflow: hidden;
+
+  animation: contactDropdown 0.15s ease-out;
+}
+
+
+@keyframes contactDropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================================
+   CONTACT OPTIONS
+   ========================================================= */
+
+.contact-option {
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 13px 14px;
+
+  border-radius: 9px;
+
+  color: #202124;
+
+  text-decoration: none;
+
+  font-family:
+    "Aptos Display",
+    Aptos,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: 16px;
+  font-weight: 500;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+
+.contact-option:hover {
+  background: #f1f5f9;
+
+  color: #111827;
+
+  text-decoration: none;
+}
+
+
+/* =========================================================
+   CONTACT ICONS
+   ========================================================= */
+
+.contact-icon {
+  width: 32px;
+  height: 32px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  font-family: Arial, sans-serif;
+
+  font-weight: 700;
+
+  font-size: 15px;
+}
+
+
+.linkedin-icon {
+  background: #0a66c2;
+  color: #ffffff;
+}
+
+
+.github-icon {
+  background: #24292f;
+  color: #ffffff;
+
+  font-size: 17px;
+}
 
 /* =========================================================
    README CARD
@@ -384,22 +588,28 @@ section {
   }
 
   .site-sidebar {
-    position: relative;
+  position: relative;
 
-    left: auto;
-    top: auto;
-    bottom: auto;
+  left: auto;
+  top: auto;
+  bottom: auto;
 
-    width: 100%;
-    height: 72px;
+  width: 100%;
+  height: auto;
+  min-height: 72px;
 
-    margin-bottom: 18px;
+  margin-bottom: 12px;
 
-    border-radius: 10px;
+  border-radius: 10px;
 
-    box-shadow:
-      0 5px 18px rgba(0, 0, 0, 0.12);
-  }
+  box-shadow:
+    0 5px 18px rgba(0, 0, 0, 0.12);
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+}
 
   /*
    * Keep the GSoC image horizontal on mobile.
@@ -409,6 +619,53 @@ section {
 
     transform: none;
   }
+
+  /* =========================================================
+   MOBILE CONTACT ME
+   ========================================================= */
+
+.contact-menu {
+  position: relative;
+
+  top: auto;
+  right: auto;
+
+  width: 100%;
+
+  margin-bottom: 18px;
+
+  z-index: 100;
+}
+
+
+.contact-button {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  height: 48px;
+
+  border-radius: 10px;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.14);
+}
+
+
+.contact-dialog {
+  position: relative;
+
+  top: auto;
+  right: auto;
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  margin-top: 8px;
+
+  border-radius: 12px;
+}
 
   .readme-card {
     width: 100%;
