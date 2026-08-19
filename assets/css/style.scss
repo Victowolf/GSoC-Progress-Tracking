@@ -3,50 +3,38 @@
 
 @import "{{ site.theme }}";
 
-/*
- * GSoC Website — Architect theme customization
- *
- * Layout:
- *   Blue patterned background
- *   ├── Fixed/desktop sidebar
- *   └── Centered rounded README card
- *
- * The background pattern is embedded directly as an SVG data image,
- * so no additional background asset is required.
- */
-
-/* ------------------------------
-   Theme reset
-   ------------------------------ */
+/* =========================================================
+   RESET ARCHITECT DEFAULT LAYOUT
+   ========================================================= */
 
 html,
 body {
   min-height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0 !important;
-  background-color: #1676d2 !important;
+  background-color: #1676d2;
 
   /*
-   * Repeating blue code-themed pattern.
-   * This is an image embedded as a data URI and repeated vertically/horizontally.
+   * Your repeating background image.
+   * Place background.png in the Website root.
    */
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='190' height='190' viewBox='0 0 190 190'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.075' stroke-width='7'%3E%3Cpath d='M95 18l55 32v64l-55 32-55-32V50z'/%3E%3Cpath d='M76 72l-18 18 18 18M114 72l18 18-18 18M103 65L87 125'/%3E%3C/g%3E%3C/svg%3E") !important;
-  background-repeat: repeat !important;
-  background-attachment: fixed !important;
+  background-image: url("../../background.png");
+  background-repeat: repeat;
+  background-position: top left;
+  background-size: 380px auto;
+  background-attachment: fixed;
 
   color: #111;
 }
 
-/* Remove Architect's default project header/footer. */
 header,
 footer {
   display: none !important;
 }
 
-/* Remove default theme spacing/layout constraints. */
 .wrapper {
   width: 100% !important;
   max-width: none !important;
@@ -58,164 +46,192 @@ section {
   float: none !important;
   width: auto !important;
   max-width: none !important;
-  padding: 0 !important;
   margin: 0 !important;
+  padding: 0 !important;
 }
 
-/* ------------------------------
-   Main website layout
-   ------------------------------ */
+
+/* =========================================================
+   MAIN LAYOUT
+   ========================================================= */
 
 .website-shell {
   min-height: 100vh;
+
+  /*
+   * Space on the left is reserved for the attached sidebar.
+   */
+  padding-left: 125px;
+  padding-right: 45px;
+  padding-top: 45px;
+  padding-bottom: 60px;
+
   display: flex;
+  justify-content: center;
   align-items: flex-start;
-  gap: 44px;
-  padding: 34px 42px 60px;
+
+  position: relative;
 }
 
-/* ------------------------------
-   Left sidebar
-   ------------------------------ */
+
+/* =========================================================
+   LEFT SIDEBAR
+   ========================================================= */
 
 .site-sidebar {
-  position: sticky;
-  top: 24px;
-  flex: 0 0 118px;
-  width: 118px;
-  height: calc(100vh - 48px);
-  min-height: 650px;
+  position: fixed;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  left: 0;
+  top: 0;
+  bottom: 0;
 
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
-  overflow: hidden;
-}
+  width: 105px;
 
-.menu-icon {
-  width: 34px;
-  margin-top: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
+  background: #ffffff;
 
-.menu-icon span {
-  display: block;
-  width: 30px;
-  height: 3px;
-  border-radius: 3px;
-  background: #687078;
-}
+  z-index: 100;
 
-.sidebar-brand {
-  flex: 1;
+  box-shadow: 4px 0 18px rgba(0, 0, 0, 0.10);
+
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  gap: 24px;
-  padding: 25px 0;
-}
-
-.sidebar-brand span {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-
-  color: #172033;
-  font-family: "Aptos Display", Aptos, "Segoe UI", Arial, sans-serif;
-  font-size: 28px;
-  font-weight: 600;
-  letter-spacing: -0.5px;
-  white-space: nowrap;
-}
-
-.sidebar-brand img {
-  width: 46px;
-  height: 46px;
-  object-fit: contain;
-}
-
-/* ------------------------------
-   README card
-   ------------------------------ */
-
-.readme-card {
-  flex: 1 1 auto;
-  min-width: 0;
-  max-width: 1080px;
-  margin: 0 auto;
-
-  background: rgba(255, 255, 255, 0.985);
-  border-radius: 22px;
-  box-shadow:
-    0 20px 55px rgba(0, 0, 0, 0.18),
-    0 2px 8px rgba(0, 0, 0, 0.08);
 
   overflow: hidden;
 }
 
-.readme-content {
-  padding: 52px 64px 70px;
+
+/*
+ * The image itself contains:
+ *
+ * Google Summer of Code
+ * + logo
+ *
+ * We simply rotate the entire image.
+ */
+.sidebar-image-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* ------------------------------
-   README typography
-   ------------------------------ */
+.sidebar-image-wrapper img {
+  width: 680px;
+  max-width: none;
+  height: auto;
+
+  transform: rotate(-90deg);
+
+  display: block;
+}
+
+
+/* =========================================================
+   README CARD
+   ========================================================= */
+
+.readme-card {
+  width: min(1080px, 100%);
+
+  background: rgba(255, 255, 255, 0.98);
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 20px 55px rgba(0, 0, 0, 0.20),
+    0 4px 12px rgba(0, 0, 0, 0.08);
+
+  overflow: hidden;
+}
+
 
 .readme-content {
-  font-family: "Aptos Display", Aptos, "Segoe UI", Arial, sans-serif;
-  color: #222;
+  padding: 55px 65px 75px;
+
+  font-family:
+    "Aptos Display",
+    Aptos,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
   font-size: 16px;
+
   line-height: 1.65;
+
+  color: #222;
 }
+
+
+/* =========================================================
+   README TYPOGRAPHY
+   ========================================================= */
 
 .readme-content h1,
 .readme-content h2,
 .readme-content h3,
 .readme-content h4 {
   color: #172033;
-  line-height: 1.25;
+
   font-weight: 600;
+
+  line-height: 1.25;
 }
+
 
 .readme-content h1 {
   font-size: 34px;
-  margin: 0 0 28px;
+
+  margin-top: 0;
+  margin-bottom: 28px;
+
   padding-bottom: 16px;
-  border-bottom: 1px solid #e4e7eb;
+
+  border-bottom: 1px solid #e2e5e8;
 }
+
 
 .readme-content h2 {
-  font-size: 26px;
-  margin: 46px 0 18px;
+  font-size: 27px;
+
+  margin-top: 48px;
+  margin-bottom: 18px;
+
   padding-bottom: 10px;
-  border-bottom: 1px solid #e4e7eb;
+
+  border-bottom: 1px solid #e2e5e8;
 }
+
 
 .readme-content h3 {
-  font-size: 20px;
-  margin: 32px 0 14px;
+  font-size: 21px;
+
+  margin-top: 32px;
+  margin-bottom: 14px;
 }
+
 
 .readme-content h4 {
-  font-size: 17px;
+  font-size: 18px;
+
+  margin-top: 26px;
 }
+
 
 .readme-content p {
-  margin: 0 0 18px;
+  margin-top: 0;
+  margin-bottom: 18px;
 }
 
-.readme-content strong {
-  color: #111827;
-}
+
+/* =========================================================
+   LINKS
+   ========================================================= */
 
 .readme-content a {
   color: #0969da;
+
   text-decoration: none;
 }
 
@@ -223,9 +239,15 @@ section {
   text-decoration: underline;
 }
 
+
+/* =========================================================
+   LISTS
+   ========================================================= */
+
 .readme-content ul,
 .readme-content ol {
   padding-left: 28px;
+
   margin-top: 8px;
   margin-bottom: 20px;
 }
@@ -234,116 +256,166 @@ section {
   margin: 5px 0;
 }
 
+
+/* =========================================================
+   BLOCKQUOTES
+   ========================================================= */
+
 .readme-content blockquote {
   margin: 20px 0;
+
   padding: 8px 18px;
-  border-left: 4px solid #74bdf5;
-  color: #4b5563;
+
+  border-left: 4px solid #72bdf5;
+
   background: #f8fafc;
+
+  color: #4b5563;
 }
+
+
+/* =========================================================
+   INLINE CODE
+   ========================================================= */
 
 .readme-content code {
   padding: 2px 6px;
+
   border-radius: 5px;
+
   background: #eef3f7;
-  color: #243447;
-  font-family: Consolas, "SFMono-Regular", monospace;
+
+  color: #26384a;
+
+  font-family:
+    Consolas,
+    "SFMono-Regular",
+    monospace;
+
   font-size: 0.9em;
 }
 
+
+/* =========================================================
+   CODE BLOCKS
+   ========================================================= */
+
 .readme-content pre {
   overflow-x: auto;
+
   padding: 18px;
+
   border-radius: 10px;
+
   background: #111827;
+
   color: #f8fafc;
+
   line-height: 1.45;
 }
 
 .readme-content pre code {
   padding: 0;
+
   background: transparent;
+
   color: inherit;
 }
 
+
+/* =========================================================
+   TABLES
+   ========================================================= */
+
 .readme-content table {
   width: 100%;
+
   border-collapse: collapse;
+
   margin: 20px 0 28px;
 }
 
 .readme-content th,
 .readme-content td {
   padding: 10px 13px;
+
   border: 1px solid #e1e5e9;
+
   text-align: left;
+
   vertical-align: top;
 }
 
 .readme-content th {
   background: #f6f8fa;
+
   color: #172033;
+
   font-weight: 700;
 }
+
+
+/* =========================================================
+   IMAGES INSIDE README
+   ========================================================= */
 
 .readme-content img {
   max-width: 100%;
   height: auto;
 }
 
-/* ------------------------------
-   Mobile
-   ------------------------------ */
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
 @media screen and (max-width: 850px) {
+
+  /*
+   * On mobile the sidebar becomes a compact top bar.
+   */
   .website-shell {
+    padding: 15px;
+
     display: block;
-    padding: 18px 14px 35px;
   }
 
   .site-sidebar {
     position: relative;
+
+    left: auto;
     top: auto;
+    bottom: auto;
 
     width: 100%;
-    height: 74px;
-    min-height: 0;
+    height: 72px;
+
     margin-bottom: 18px;
 
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 0 22px;
+    border-radius: 10px;
+
+    box-shadow:
+      0 5px 18px rgba(0, 0, 0, 0.12);
   }
 
-  .menu-icon {
-    margin: 0;
-  }
+  /*
+   * Keep the GSoC image horizontal on mobile.
+   */
+  .sidebar-image-wrapper img {
+    width: 300px;
 
-  .sidebar-brand {
-    flex: 0 0 auto;
-    flex-direction: row;
-    gap: 12px;
-    padding: 0;
-  }
-
-  .sidebar-brand span {
-    writing-mode: horizontal-tb;
     transform: none;
-    font-size: 18px;
-  }
-
-  .sidebar-brand img {
-    width: 34px;
-    height: 34px;
   }
 
   .readme-card {
-    max-width: none;
+    width: 100%;
+
     border-radius: 16px;
   }
 
   .readme-content {
     padding: 32px 24px 45px;
+
     font-size: 15px;
   }
 
@@ -357,25 +429,33 @@ section {
 
   .readme-content table {
     display: block;
+
     overflow-x: auto;
   }
 }
 
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
 @media screen and (max-width: 480px) {
+
   .website-shell {
-    padding: 10px 8px 24px;
+    padding: 8px;
   }
 
   .site-sidebar {
-    height: 62px;
+    height: 60px;
+
     border-radius: 8px;
   }
 
-  .sidebar-brand span {
-    font-size: 15px;
+  .sidebar-image-wrapper img {
+    width: 250px;
   }
 
   .readme-content {
-    padding: 24px 18px 35px;
+    padding: 25px 18px 35px;
   }
 }
