@@ -15,11 +15,8 @@ layout: default
 
   <main class="readme-card">
     <div class="readme-content">
-      {% capture readme_content %}
-      {% include_relative README.md %}
-      {% endcapture %}
-
-      {{ readme_content | markdownify }}
+{% capture readme_content %}{% include_relative README.md %}{% endcapture %}
+{{ readme_content | markdownify }}
     </div>
   </main>
 

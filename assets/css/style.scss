@@ -17,14 +17,10 @@ body {
 body {
   background-color: #1676d2;
 
-  /*
-   * Your repeating background image.
-   * Place background.png in the Website root.
-   */
   background-image: url("../../background.png");
-  background-repeat: repeat;
-  background-position: top left;
-  background-size: 380px auto;
+  background-repeat: repeat-y;
+  background-position: top center;
+  background-size: 100% auto;
   background-attachment: fixed;
 
   color: #111;
@@ -117,7 +113,7 @@ section {
 }
 
 .sidebar-image-wrapper img {
-  width: 680px;
+  width: calc(100vh - 80px);
   max-width: none;
   height: auto;
 
