@@ -29,7 +29,9 @@ The overall objective is to allow developers to inspect WebSocket communication 
 | Community Bonding | ✅ Completed |
 | Milestone 1 — WebSocket Timeline Instrumentation | ✅ Completed & Merged |
 | Milestone 2 — VM Service Integration | ✅ Completed & Merged |
-| Overall Progress | **On Schedule ✅** |
+| Milestone 3 — WebSocket Profiling & VM Service Support | ✅ Completed & Merged                         |
+| Milestone 4 — DevTools Network Panel Integration       | 🟡 Implementation Complete — PR Under Review |
+| Overall Progress                                       | **On Schedule ✅**                            |
 
 ---
 
@@ -230,6 +232,322 @@ This milestone preserves complete backward compatibility while extending existin
 
 ---
 
+# Milestone 3 — WebSocket Profiling & VM Service Support
+
+### Timeline
+
+`08 July 2026`
+
+* Started implementation of the WebSocket profiling infrastructure
+* Designed the profiler architecture based on existing HTTP profiling
+
+`16–20 July 2026`
+
+* Implemented the WebSocket profiler
+* Implemented profile data and profile events
+* Worked on VM Service integration
+* Added support for connection-level and frame-level profiling data
+
+`21–25 July 2026`
+
+* Added and refined VM Service tests
+* Defined the WebSocket profiling data exposed to DevTools
+* Finalized connection and frame-level metadata
+
+`26 July 2026`
+
+* Completed code formatting and cleanup
+* Submitted CL for review
+
+`27 July – 12 August 2026`
+
+* Addressed VM Service review comments
+* Updated the `vm_service` package SDK constraints
+* Resolved build and CBuild issues
+* Refined the implementation based on review feedback
+
+`13 August 2026`
+
+* CL merged into the Dart SDK
+
+### Explanation
+
+Milestone 3 introduced the WebSocket profiling infrastructure required to aggregate connection-level and frame-level WebSocket activity and expose it through the existing Dart VM Service profiling architecture.
+
+A dedicated `WebSocketProfiler` was implemented to continuously maintain profiling information for active and completed WebSocket connections. The profiler uses connection identifiers to maintain stable profiles across multiple updates and stores structured information about the lifecycle and activity of each connection.
+
+The profiling architecture consists of:
+
+* `WebSocketProfiler`
+* `_WebSocketProfileData`
+* `_WebSocketProfileEvent`
+
+The implementation follows the existing HTTP profiling architecture where appropriate while adapting it for persistent WebSocket connections.
+
+Each WebSocket connection records information including:
+
+* Connection ID
+* Isolate ID
+* URI
+* Start and end timestamps
+* Connection state
+* Bytes sent and received
+* Frames sent and received
+* Ping/Pong counts
+* Close code and reason
+* Error information
+* Last updated timestamp
+
+Individual WebSocket events are also recorded, allowing DevTools to inspect the activity occurring over a persistent connection.
+
+The recorded event types include:
+
+* Connect
+* Open
+* Send
+* Receive
+* Ping
+* Pong
+* Close
+* Error
+
+Each event contains structured metadata such as:
+
+* Frame/event number
+* Timestamp
+* Connection ID
+* URI
+* Direction
+* Event type
+* Opcode
+* Payload size
+* Error type
+* Error message
+
+The profiler was integrated with VM Service so that WebSocket profiling data can be retrieved, updated incrementally, looked up by connection, and cleared using the existing profiling workflow.
+
+VM Service tests were added to validate:
+
+* Profile creation
+* Connection lookup
+* Frame/event aggregation
+* Profile clearing
+* VM Service serialization
+* WebSocket profiling data retrieval
+
+The implementation was reviewed through multiple iterations, including changes to SDK constraints and build configuration. After addressing the review feedback and resolving build issues, the CL was successfully merged into the Dart SDK.
+
+### Submitted CL
+
+> *[Gerrit Change Link](https://dart-review.googlesource.com/c/sdk/+/527880)*
+
+### Tracking Issue
+
+> *[Tracking Issue Link](https://github.com/Victowolf/GSoC-Progress-Tracking/issues/7)*
+
+### Status
+
+> **Merged ✅**
+
+---
+
+# Milestone 4 — WebSocket Integration into the Flutter DevTools Network Panel
+
+### Timeline
+
+`14 August 2026`
+
+* Designed the DevTools UI mapping for WebSocket connections
+* Mapped WebSocket profiling data to existing Network panel fields
+
+`15 August 2026`
+
+* Finalized the DevTools integration architecture
+* Designed WebSocket Network models
+* Planned Network Service and Controller integration
+* Designed Overview and Frames inspection views
+
+`16–19 August 2026`
+
+* Implemented WebSocket support in the DevTools Network panel
+* Integrated WebSocket profiling data with the existing Network polling workflow
+* Added WebSocket Network models
+* Implemented WebSocket Overview and Frames inspection
+* Extended tests
+* Submitted PR for review
+
+### Explanation
+
+Milestone 4 focuses on bringing the WebSocket profiling data collected by the Dart SDK and exposed through VM Service into the Flutter DevTools Network panel.
+
+The implementation reuses the existing Network infrastructure instead of introducing a separate WebSocket screen or controller. WebSocket connections are represented as `NetworkRequest` implementations and therefore participate in the same Network table, polling, filtering, selection, and inspection workflows used by existing network traffic.
+
+The overall data flow is:
+
+```text
+Dart SDK
+   │
+   ▼
+WebSocketProfiler
+   │
+   ▼
+VM Service
+   │
+   ▼
+getWebSocketProfile()
+   │
+   ▼
+NetworkService
+   │
+   ▼
+NetworkController
+   │
+   ▼
+CurrentNetworkRequests
+   │
+   ▼
+NetworkScreen
+   │
+   ├── Overview
+   │
+   └── Frames
+```
+
+### WebSocket Network Integration
+
+WebSocket connections are represented directly in the existing Network request table.
+
+The WebSocket model maps profiling information to the standard Network fields:
+
+| Network Field | WebSocket Value             |
+| ------------- | --------------------------- |
+| Method        | `websocket`                    |
+| Address       | WebSocket URI               |
+| Status        | Connection state            |
+| Duration      | Connection duration         |
+| Size          | Total bytes sent + received |
+| Timestamp     | Connection start timestamp  |
+
+The WebSocket model maintains the connection ID as its stable identity, allowing subsequent profiling updates to modify the existing Network entry rather than creating duplicate entries.
+
+### WebSocket Inspection
+
+Selecting a WebSocket connection opens a dedicated inspection experience containing:
+
+```text
+WebSocket
+   ├── Overview
+   └── Frames
+```
+
+The **Overview** section exposes connection-level information including:
+
+* URI
+* Connection ID
+* Connection state
+* Protocol
+* Bytes sent
+* Bytes received
+* Frames sent
+* Frames received
+* Ping count
+* Pong count
+* Start time
+* End time
+* Duration
+* Last updated timestamp
+
+The **Frames** section displays individual WebSocket profiling events.
+
+Each event contains:
+
+* Frame number
+* Direction
+* Event type
+* Opcode
+* Payload size
+* Timestamp
+* Error information when applicable
+
+Supported event types include:
+
+* Connect
+* Open
+* Send
+* Receive
+* Ping
+* Pong
+* Close
+* Error
+
+Selecting an individual event provides expanded details including the connection ID, URI, direction, opcode, payload size, timestamp, and error information.
+
+### Testing
+
+Tests were extended to cover the DevTools WebSocket integration, including:
+
+#### Model
+
+* WebSocket `NetworkRequest` implementation
+* Stable connection identity
+* URI and connection state mapping
+* Statistics mapping
+* Timestamp and duration handling
+* Updating existing connections
+* Retaining new WebSocket events
+* Listener notifications when profile data changes
+
+#### Network Integration
+
+* WebSocket profile retrieval
+* Incremental `updatedSince` polling
+* Adding new WebSocket connections
+* Updating existing connections without duplication
+* Clearing WebSocket profiling data
+* Maintaining selection across updates
+
+#### UI
+
+* WebSocket entries in the Network table
+* WebSocket Overview
+* WebSocket Frames tab
+* Frame/event rendering
+* Separate Event and Opcode fields
+* Error information rendering
+* Live updates to Overview and Frames
+
+### Submitted PR
+
+> *[Github PR Link](https://github.com/flutter/devtools/pull/9968)* 
+
+### Tracking Issue
+
+> *[Tracking Issue Link](https://github.com/Victowolf/GSoC-Progress-Tracking/issues/8)*
+
+### Status
+
+> **In Review 🟡**
+
+---
+
+# What's Remaining
+
+With the core WebSocket profiling pipeline implemented across the Dart SDK, VM Service, and DevTools, the remaining work focuses on extending ecosystem support, implementing planned WebSocket enhancements, and progressing toward gRPC profiling.
+
+### 1. Third-Party WebSocket Package Support
+
+Extend WebSocket profiling support to third-party Dart packages including `cupertino_http`, `web_socket`, and `web_socket_channel`. These packages provide alternative or wrapper-based WebSocket implementations, so integration will allow their traffic to participate in the same DevTools profiling workflow.
+
+### 2. WebSocket Enhancements
+
+Implement additional WebSocket profiling enhancements where appropriate, including improved lifecycle tracking, connection-level summaries, and handling of high-volume WebSocket traffic. These improvements will further enhance the usability and debugging experience of WebSocket profiling in DevTools.
+
+### 3. gRPC Support
+
+Begin implementation of gRPC profiling as the next protocol-level extension. The initial work will focus on client-side timeline instrumentation and structured RPC profiling, followed by exploring VM Service and DevTools integration based on the existing gRPC profiling architecture and mentor guidance.
+
+---
+
 ## Community Interactions
 Throughout the coding period, valuable feedback from mentors and Dart SDK contributors helped improve the implementation, testing strategy, documentation quality, coding style, performance considerations, and overall maintainability of the project. Multiple rounds of review resulted in refinements that aligned the implementation with existing Dart SDK conventions and ensured production-quality contributions.
 
@@ -238,5 +556,6 @@ Throughout the coding period, valuable feedback from mentors and Dart SDK contri
 - Brian Quinlan
 - Ben Konyi
 - Kevin Moore
+- Alexander Aprelev
 
 # Thank you..!!
