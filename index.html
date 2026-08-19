@@ -1,1 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSoC 2026</title>
 
+  <style>
+    :root {
+      --text: #000;
+      --border: #e5e5e5;
+      --code-bg: #f6f8fa;
+      --quote-border: #d0d7de;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: #fff;
+      color: var(--text);
+      font-family: "Aptos Display", Aptos, "Segoe UI", Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    .page {
+      width: min(1150px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 28px 0 70px;
+    }
+
+    .header-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0 auto 28px;
+    }
+
+    .readme {
+      width: 100%;
+    }
+
+    .readme h1,
+    .readme h2,
+    .readme h3,
+    .readme h4 {
+      line-height: 1.25;
+      margin-top: 1.8em;
+      margin-bottom: 0.65em;
+    }
+
+    .readme h1 {
+      font-size: 2.1rem;
+    }
+
+    .readme h2 {
+      font-size: 1.7rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.3em;
+    }
+
+    .readme h3 {
+      font-size: 1.35rem;
+    }
+
+    .readme h4 {
+      font-size: 1.1rem;
+    }
+
+    .readme p {
+      margin: 0 0 1rem;
+    }
+
+    .readme ul,
+    .readme ol {
+      padding-left: 1.7rem;
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+
+    .readme li {
+      margin: 0.25rem 0;
+    }
+
+    .readme a {
+      color: #0969da;
+      text-decoration: none;
+    }
+
+    .readme a:hover {
+      text-decoration: underline;
+    }
+
+    .readme blockquote {
+      margin: 1rem 0;
+      padding: 0.2rem 1rem;
+      color: #444;
+      border-left: 4px solid var(--quote-border);
+    }
+
+    .readme code {
+      padding: 0.15em 0.35em;
+      border-radius: 5px;
+      background: var(--code-bg);
+      font-family: Consolas, "SFMono-Regular", monospace;
+      font-size: 0.9em;
+    }
+
+    .readme pre {
+      overflow-x: auto;
+      padding: 1rem;
+      border-radius: 8px;
+      background: #161b22;
+      color: #f0f6fc;
+    }
+
+    .readme pre code {
+      padding: 0;
+      background: transparent;
+      color: inherit;
+    }
+
+    .readme table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.5rem;
+      overflow: hidden;
+    }
+
+    .readme th,
+    .readme td {
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .readme th {
+      font-weight: 700;
+      background: #fafafa;
+    }
+
+    .readme img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    @media (max-width: 700px) {
+      .page {
+        width: min(100% - 24px, 1150px);
+        padding-top: 16px;
+      }
+
+      .header-image {
+        margin-bottom: 20px;
+      }
+
+      .readme h1 {
+        font-size: 1.75rem;
+      }
+
+      .readme h2 {
+        font-size: 1.45rem;
+      }
+
+      .readme table {
+        display: block;
+        overflow-x: auto;
+        white-space: normal;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <img class="header-image" src="./GSoC.png" alt="">
+    <article id="readme" class="readme"></article>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    fetch("./README.md")
+      .then(response => {
+        if (!response.ok) throw new Error("README.md could not be loaded.");
+        return response.text();
+      })
+      .then(markdown => {
+        document.getElementById("readme").innerHTML = marked.parse(markdown, {
+          gfm: true,
+          breaks: false
+        });
+      });
+  </script>
+</body>
+</html>
