@@ -1,8 +1,8 @@
 # Google Summer of Code 2026
 
-**Contributor: *Yash Hosalli*** </br>
-**Organization: *Dart*** </br>
-**Mentors: *Elliott B, Sam Rawlins, Hannah Jin***
+- **Contributor: *Yash Hosalli*** 
+- **Organization: *Dart***
+- **Mentors: *Elliott B, Sam Rawlins, Hannah Jin***
 
 ## Project Title
 
