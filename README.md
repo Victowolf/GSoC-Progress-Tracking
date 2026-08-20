@@ -1,5 +1,17 @@
 # Google Summer of Code 2026
 
+### Contributor &emsp;&emsp;&emsp; Mentors
+**Yash Hosalli &emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;Elliott B, Sam Rawlins, Hannah Jin**
+
+### Organization
+**Dart**
+
+### Technologies
+**flutter, dart, WebSocket, DevTools, VM Service**
+
+### Topics
+**developer tools, networking, performance, observability**
+
 ## Project Title
 
 **Add WebSocket/gRPC Support to the Flutter DevTools Network Panel**
