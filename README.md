@@ -1,5 +1,9 @@
 # Google Summer of Code 2026
 
+- **Contributor: *Yash Hosalli*** 
+- **Organization: *Dart***
+- **Mentors: *Elliott B, Sam Rawlins, Hannah Jin***
+
 ## Project Title
 
 **Add WebSocket/gRPC Support to the Flutter DevTools Network Panel**
@@ -24,14 +28,14 @@ The overall objective is to allow developers to inspect WebSocket communication 
 
 # Progress Summary
 
-| Phase | Status |
-|--------|--------|
-| Community Bonding | ✅ Completed |
-| Milestone 1 — WebSocket Timeline Instrumentation | ✅ Completed & Merged |
-| Milestone 2 — VM Service Integration | ✅ Completed & Merged |
-| Milestone 3 — WebSocket Profiling & VM Service Support | ✅ Completed & Merged                         |
-| Milestone 4 — DevTools Network Panel Integration       | 🟡 Implementation Complete — PR Under Review |
-| Overall Progress                                       | **On Schedule ✅**                            |
+| Phase | Status | CL / PR | Tracking Issue |
+|--------|--------|---------|----------------|
+| [Community Bonding](#community-bonding-period) | ✅ Completed | [CL](https://dart-review.googlesource.com/c/sdk/+/502500) | [#2](https://github.com/Victowolf/GSoC-Progress-Tracking/issues/2) |
+| [Milestone 1 — WebSocket Timeline Instrumentation](#milestone-1--enable-websocket-timeline-logging-in-dart) | ✅ Completed & Merged | [CL](https://dart-review.googlesource.com/c/sdk/+/509860) | [#5](https://github.com/Victowolf/GSoC-Progress-Tracking/issues/5) |
+| [Milestone 2 — VM Service Integration](#milestone-2--vm-service-integration-for-websocket-profiling) | ✅ Completed & Merged | [CL](https://dart-review.googlesource.com/c/sdk/+/520800) | [#6](https://github.com/Victowolf/GSoC-Progress-Tracking/issues/6) |
+| [Milestone 3 — WebSocket Profiling & VM Service Support](#milestone-3--websocket-profiling--vm-service-support) | ✅ Completed & Merged | [CL](https://dart-review.googlesource.com/c/sdk/+/527880) | [#7](https://github.com/Victowolf/GSoC-Progress-Tracking/issues/7) |
+| [Milestone 4 — DevTools Network Panel Integration](#milestone-4--websocket-integration-into-the-flutter-devtools-network-panel) | ✅ Completed & Merged | [PR #9968](https://github.com/flutter/devtools/pull/9968) | [#8](https://github.com/Victowolf/GSoC-Progress-Tracking/issues/8) |
+| **Overall Progress** | **Completed On Schedule ✅** | — | — |
 
 ---
 
@@ -376,6 +380,21 @@ The implementation was reviewed through multiple iterations, including changes t
 * Extended tests
 * Submitted PR for review
 
+`20–22 August 2026`
+
+* Added offline support for WebSocket Network data
+* Addressed review feedback
+
+`23–24 August 2026`
+
+* Bumped the DevTools `vm_service` dependency to `^15.3.0`
+* Resolved merge conflicts and addressed failing tests
+
+`25 August 2026`
+
+* Completed final checks
+* Finalized the implementation
+
 ### Explanation
 
 Milestone 4 focuses on bringing the WebSocket profiling data collected by the Dart SDK and exposed through VM Service into the Flutter DevTools Network panel.
@@ -526,7 +545,7 @@ Tests were extended to cover the DevTools WebSocket integration, including:
 
 ### Status
 
-> **In Review 🟡**
+> **Merged ✅**
 
 ---
 
