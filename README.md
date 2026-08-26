@@ -37,6 +37,9 @@ The overall objective is to allow developers to inspect WebSocket communication 
 | [Milestone 4 — DevTools Network Panel Integration](#milestone-4--websocket-integration-into-the-flutter-devtools-network-panel) | ✅ Completed & Merged | [PR #9968](https://github.com/flutter/devtools/pull/9968) | [#8](https://github.com/Victowolf/GSoC-Progress-Tracking/issues/8) |
 | **Overall Progress** | **Completed On Schedule ✅** | — | — |
 
+- [What's Remaining](#whats-remaining) 
+- [Community Interactions](#community-interactions) 
+
 ---
 
 # Community Bonding Period
@@ -567,7 +570,7 @@ Begin implementation of gRPC profiling as the next protocol-level extension. The
 
 ---
 
-## Community Interactions
+# Community Interactions
 Throughout the coding period, valuable feedback from mentors and Dart SDK contributors helped improve the implementation, testing strategy, documentation quality, coding style, performance considerations, and overall maintainability of the project. Multiple rounds of review resulted in refinements that aligned the implementation with existing Dart SDK conventions and ensured production-quality contributions.
 
 - Samuel Rawlins
